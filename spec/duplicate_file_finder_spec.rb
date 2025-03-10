@@ -28,5 +28,14 @@ RSpec.describe DuplicateFileFinder do
     expect { finder.run }.to output("abcdef 3\n").to_stdout
   end
 
+  it "returns a message if no duplicate files are found" do
+    FileUtils.rm_rf(test_dir)
+    FileUtils.mkdir_p(test_dir)
+
+    finder = DuplicateFileFinder.new(test_dir)
+
+    expect { finder.run }.to output("No duplicate files found\n").to_stdout
+  end
+
 end
 
